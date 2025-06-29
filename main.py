@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from urllib.parse import urlparse, parse_qs
 from bs4 import BeautifulSoup
 from typing import Union
+from mangum import Mangum  # AWS Lambda adapter
 import base64
 import httpx
 
@@ -58,3 +59,6 @@ def get_embed(raw_iframe_url: str = Query(...)):
         "original_embed_iframe": raw_iframe_url,
         "decoded_url": decoded_url
     })
+
+# Required by Vercel's serverless system
+handler = Mangum(app)
