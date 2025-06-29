@@ -14,6 +14,9 @@ app = FastAPI()
 @app.get("/")
 def root():
     return {"message": "Hello from FastAPI on Vercel"}
+    
+# Required by Vercel's serverless system
+handler = Mangum(app)
 
 @app.get("/fetch-menus")
 async def fetch_diaries():
@@ -60,5 +63,4 @@ def get_embed(raw_iframe_url: str = Query(...)):
         "decoded_url": decoded_url
     })
 
-# Required by Vercel's serverless system
-handler = Mangum(app)
+
