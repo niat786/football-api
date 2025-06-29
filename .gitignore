@@ -1,3 +1,36 @@
-.DS_Store
+# Byte-compiled / optimized / compiled files
 __pycache__/
-venv
+*.pyc
+*.pyd
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+
+# Editor/IDE specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Sensitive information
+.env
+*.log
+*.sqlite3
+
+# Test/build artifacts
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+
+# Uploaded files (if applicable)
+media/
+uploads/
+
+# OS generated files
+.DS_Store
+Thumbs.db
