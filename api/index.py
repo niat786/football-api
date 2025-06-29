@@ -3,9 +3,9 @@ from fastapi.responses import JSONResponse
 from urllib.parse import urlparse, parse_qs
 from bs4 import BeautifulSoup
 from typing import Union
-from mangum import Mangum
 import base64
 import httpx
+from mangum import Mangum
 
 app = FastAPI()
 
