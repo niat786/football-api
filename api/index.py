@@ -3,27 +3,20 @@ from fastapi.responses import JSONResponse
 from urllib.parse import urlparse, parse_qs
 from bs4 import BeautifulSoup
 from typing import Union
-from mangum import Mangum  # AWS Lambda adapter
+from mangum import Mangum
 import base64
 import httpx
 
-
 app = FastAPI()
-
 
 @app.get("/")
 def root():
     return {"message": "Hello from FastAPI on Vercel"}
-    
-# Required by Vercel's serverless system
-handler = Mangum(app)
 
 @app.get("/fetch-menus")
 async def fetch_diaries():
     url = "https://ftvhd.com/diaries.json"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (compatible; DiariesFetcher/1.0)"
-    }
+    headers = {"User-Agent": "Mozilla/5.0"}
 
     try:
         async with httpx.AsyncClient(timeout=10) as client:
@@ -34,33 +27,28 @@ async def fetch_diaries():
                 "error": f"Failed to fetch diaries.json. Status code: {response.status_code}"
             })
 
-        # Parse JSON response
-        data = response.json() 
-
-        return {"data": data['data']}
+        data = response.json()
+        return {"data": data.get("data")}
 
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
 
-
 @app.get("/get-embed-link")
 def get_embed(raw_iframe_url: str = Query(...)):
-    # Parse the 'r' query parameter
     parsed_url = urlparse(raw_iframe_url)
     query_params = parse_qs(parsed_url.query)
     encoded_url = query_params.get("r", [""])[0]
-    
-    # Decode Base64
+
     try:
         decoded_bytes = base64.urlsafe_b64decode(encoded_url)
         decoded_url = decoded_bytes.decode("utf-8")
     except Exception:
         decoded_url = None
 
-    # Final clean response
     return JSONResponse({
         "original_embed_iframe": raw_iframe_url,
         "decoded_url": decoded_url
     })
 
 
+handler = Mangum(app)
