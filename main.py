@@ -5,8 +5,23 @@ from bs4 import BeautifulSoup
 from typing import Union
 import base64
 import httpx
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Allow localhost:8888
+origins = [
+    "http://localhost:8888",
+    "http://127.0.0.1:8888",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,            # or ["*"] for all domains (not recommended in production)
+    allow_credentials=True,
+    allow_methods=["*"],              # or specify: ["GET", "POST"]
+    allow_headers=["*"],              # or specify: ["Content-Type", "Authorization"]
+)
 
 @app.get("/")
 def root():
