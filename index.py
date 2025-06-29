@@ -12,8 +12,8 @@ app = FastAPI()
 
 
 @app.get("/")
-def read_root():
-    return {"Hello": "World"}
+def root():
+    return {"message": "Hello from FastAPI on Vercel"}
 
 @app.get("/fetch-menus")
 async def fetch_diaries():
