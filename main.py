@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 from typing import Union
 import base64
 import httpx
-from mangum import Mangum
 
 app = FastAPI()
 
@@ -49,6 +48,3 @@ def get_embed(raw_iframe_url: str = Query(...)):
         "original_embed_iframe": raw_iframe_url,
         "decoded_url": decoded_url
     })
-
-
-handler = Mangum(app)
