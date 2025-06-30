@@ -13,6 +13,7 @@ app = FastAPI()
 origins = [
     "http://localhost:8888",
     "http://127.0.0.1:8888",
+    "https://los-movies.net",
 ]
 
 app.add_middleware(
