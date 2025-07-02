@@ -10,11 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 # Allow localhost:8888
-origins = [
-    "http://localhost:8888",
-    "http://127.0.0.1:8888",
-    "https://los-movies.net",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
