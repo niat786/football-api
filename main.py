@@ -25,9 +25,11 @@ def root():
     return {"message": "Hello from FastAPI on Vercel"}
 
 @app.get("/fetch-menus")
-async def fetch_diaries():
+async def fetch_diaries(): 
+    
     # url = "https://ftvhd.com/diaries.json"
-    url = "https://golazoplay.com/agenda.json"
+    # url = "https://golazoplay.com/agenda.json"
+    url = "https://ftvhd.com/diaries.json"
     headers = {"User-Agent": "Mozilla/5.0"}
 
     try:
